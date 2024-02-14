@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework</title>
+    <link rel="icon" href="pic/kirby.png" type="image/x-icon" />
+
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(pic/bg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .list {
+            font-size: small;
+            width: 1000px;
+            display: flex;
+            justify-content: right;
+            text-align: center;
+            overflow: auto;
+            list-style-type: none;
+            margin: auto;
+        }
+
+        .list li {
+            font-size: 2em;
+            font-weight: bold;
+            ;
+            float: left;
+            text-align: center;
+            /* border-right: 2px solid #7B7B7B; */
+            /* line-height: 1em; */
+            padding: 10px;
+        }
+
+        .list li a {
+            display: block;
+            text-align: center;
+        }
+
+        .list li a:link {
+            text-decoration: none;
+        }
+
+        .list li a:hover {
+            background-color: #f6f695;
+            color: #000449;
+        }
+
+        h1 {
+            text-shadow: 0.1em 0.1em 0.2em lightgray;
+            text-align: center;
+            color: rgb(11, 82, 102);
+        }
+
+        table {
+            margin: auto;
+            border: 2px inset rgb(48, 3, 87);
+            border-collapse: collapse;
+        }
+
+        td {
+            color: rgb(48, 3, 87);
+            /* text-shadow: 2px 2px 6px rgb(121, 120, 120); */
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgb(252, 253, 254);
+            border: 3px inset rgb(48, 3, 87);
+            padding: 0.5em;
+
+        }
+
+        tbody td:nth-child(2n) {
+            background-color: rgb(253, 253, 229);
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <li><a href="EEIT175-29-Homework1.html">HW1</a></li>
+        <li><a href="EEIT175-29-Homework2.html">HW2</a></li>
+        <li><a href="EEIT175-29-Homework3.html">HW3</a></li>
+        <li><a href="EEIT175-29-Homework4.html">HW4</a></li>
+        <li><a href="EEIT175-29-Homework5.html">HW5</a></li>
+    </ul>
+    <h1>九九乘法表</h1>
+    <br><br>
+    <script>
+        document.write("<table>");
+        document.write("<tbody>")
+        document.write("<tr>");
+
+        for (x = 2; x < 10; x++) {
+            document.write("<td>");
+            for (y = 1; y < 10; y++) {
+                document.write(x + "*" + y + "=" + x * y + "<br>");
+            }
+            document.write("</td>");
+        }
+        document.write("</tr>");
+        document.write("/<tbody>")
+        document.write("</table>");
+    </script>
+
+</body>
+
+</html>

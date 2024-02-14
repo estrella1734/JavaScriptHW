@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework</title>
+    <link rel="icon" href="pic/kirby.png" type="image/x-icon" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(pic/bg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .list {
+            font-size: small;
+            width: 1000px;
+            display: flex;
+            justify-content: right;
+            text-align: center;
+            overflow: auto;
+            list-style-type: none;
+            margin: auto;
+        }
+
+        .list li {
+            font-size: 2em;
+            font-weight: bold;
+            ;
+            float: left;
+            text-align: center;
+            /* border-right: 2px solid #7B7B7B; */
+            /* line-height: 1em; */
+            padding: 10px;
+        }
+
+        .list li a {
+            display: block;
+            text-align: center;
+        }
+
+        .list li a:link {
+            text-decoration: none;
+        }
+
+        .list li a:hover {
+            background-color: #f6f695;
+            color: #000449;
+        }
+
+        h1 {
+            text-shadow: 0.1em 0.1em 0.2em lightgray;
+            text-align: center;
+            color: rgb(11, 82, 102);
+        }
+
+        table {
+            margin: auto;
+            border: 10px inset rgb(186, 186, 239);
+            border-collapse: collapse;
+        }
+
+        td {
+            color: rgb(48, 3, 87);
+            /* text-shadow: 2px 2px 6px rgb(121, 120, 120); */
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgb(252, 254, 254);
+            border: 5px inset rgb(186, 186, 239);
+            padding: 10px;
+
+        }
+
+
+        fieldset {
+            width: 600px;
+            height: 400px;
+            margin: auto;
+            border: 5px solid rgb(48, 3, 87);
+
+        }
+
+        div {
+            margin-top: 10px;
+            height: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            padding-left: 15px;
+
+        }
+
+        .t2 {
+            color: gray;
+            font-size: 0.5em;
+            line-height: 2px;
+
+        }
+
+        span {
+            color: red;
+            font-size: 70%;
+            margin: auto;
+            font-style: italic;
+        }
+
+        img {
+            width: 15px;
+            margin: auto;
+            color: red;
+        }
+
+        hr {
+            border: 0.5px dashed lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <li><a href="EEIT175-29-Homework1.html">HW1</a></li>
+        <li><a href="EEIT175-29-Homework2.html">HW2</a></li>
+        <li><a href="EEIT175-29-Homework3.html">HW3</a></li>
+        <li><a href="EEIT175-29-Homework4.html">HW4</a></li>
+        <li><a href="EEIT175-29-Homework5.html">HW5</a></li>
+    </ul>
+    <h1>登入驗證</h1>
+    <br><br>
+    <form>
+        <fieldset>
+            <legend>
+                <h2> &nbsp Form Check &nbsp</h2>
+            </legend>
+            <div class="st1">
+                <label for="name" class="t1">姓名:</label>
+                <input type="text" id="name">
+                <span id="namesp"></span><br>
+                <span class="t2">(1.不可空白 2.輸入兩個字以上 3.必須全為中文字)</span>
+
+            </div>
+            <br>
+            <hr>
+            <div class="st1">
+                <label for="pwd" class="t1">密碼:</label>
+                <input type="password" id="pwd">
+                <span id="pwdsp"></span><br>
+                <span class="t2">(1.不可空白 2.至少六字且包含英數字、特殊字元[!@#$%^&*])</span>
+            </div>
+            <br>
+            <hr>
+            <div class="st1">
+                <label for="date" class="t1">日期:</label>
+                <input type="text" id="date">
+                <span id="datesp"></span><br>
+                <span class="t2">格式:西元年/月/日(yyyy/mm/dd)</span>
+            </div>
+            <br>
+            <hr>
+        </fieldset>
+
+    </form>
+    <script>
+        document.getElementById("name").addEventListener("blur", function () {
+            let nmval = document.getElementById("name").value;
+            let renm = /^(?=[\u4E00-\u9FFF]).{2,}$/;
+            if (renm.test(nmval))
+                document.getElementById("namesp").innerHTML = "<img src='pic/check.jpg'>&nbsp正確";
+            else
+                document.getElementById("namesp").innerHTML = "<img src='pic/error.jpg'>&nbsp不符合格式";
+
+        })
+        document.getElementById("pwd").addEventListener("blur", function () {
+            let pwdval = document.getElementById("pwd").value;
+            let repwd = /^(?=.*[A-z])(?=.*\d)(?=.*[@$!%*?&])[A-z\d!@#$%^&*].{5,}$/;
+            if (repwd.test(pwdval))
+                document.getElementById("pwdsp").innerHTML = "<img src='pic/check.jpg'>&nbsp正確";
+
+            else
+                document.getElementById("pwdsp").innerHTML = "<img src='pic/error.jpg'>&nbsp不符合格式";
+        });
+        document.getElementById("date").addEventListener("blur", function () {
+            let dtval = document.getElementById("date").value;
+            let nd = new Date(dtval);
+            let dtsp = document.getElementById("datesp");
+
+            let darr = dtval.split("/"), yy, mm, dd;
+            yy = nd.getFullYear();
+            mm = nd.getMonth() + 1;
+            dd = nd.getDate();
+            console.log(darr)
+            if (dd == darr[2] && mm == darr[1] && yy == darr[0]) {
+                dtsp.innerHTML = "<img src='pic/check.jpg'>&nbsp正確";
+            } else {
+                dtsp.innerHTML = "<img src='pic/error.jpg'>&nbsp無此日期";
+            }
+
+        });
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

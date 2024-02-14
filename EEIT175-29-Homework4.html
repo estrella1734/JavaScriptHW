@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(pic/bg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .list {
+            font-size: small;
+            width: 1000px;
+            display: flex;
+            justify-content: right;
+            text-align: center;
+            overflow: auto;
+            list-style-type: none;
+            margin: auto;
+        }
+
+        .list li {
+            font-size: 2em;
+            font-weight: bold;
+            ;
+            float: left;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .list li a {
+            display: block;
+            text-align: center;
+        }
+
+        .list li a:link {
+            text-decoration: none;
+        }
+
+        .list li a:hover {
+            background-color: #f6f695;
+            color: #000449;
+        }
+
+        h1 {
+            text-shadow: 0.1em 0.1em 0.2em lightgray;
+            text-align: center;
+            color: rgb(11, 82, 102);
+        }
+
+        .banner_container {
+            position: relative;
+
+            margin-top: 50px;
+            margin-left: 450px;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        ul.img_box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateX(-400px);
+        }
+
+        .img_box li {
+            float: left;
+            list-style: none;
+        }
+
+        .img_box li img {
+            width: 400px;
+        }
+
+
+        .sel_box {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .sel_box li {
+            list-style: none;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(161, 187, 226);
+            margin-right: 3px;
+            border-radius: 5px;
+            transition: all 0.4s;
+        }
+
+
+        .left_btn {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 3px;
+            cursor: pointer;
+        }
+
+        .right_btn {
+            position: absolute;
+            top: 50%;
+            left: 375px;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 5px;
+            cursor: pointer;
+        }
+
+
+        .sel_box .cur {
+            background-color: rgb(248, 201, 47) !important;
+            transform: scale(1.3);
+        }
+
+        .bt {
+            width: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="list">
+        <li><a href="EEIT175-29-Homework1.html">HW1</a></li>
+        <li><a href="EEIT175-29-Homework2.html">HW2</a></li>
+        <li><a href="EEIT175-29-Homework3.html">HW3</a></li>
+        <li><a href="EEIT175-29-Homework4.html">HW4</a></li>
+        <li><a href="EEIT175-29-Homework5.html">HW5</a></li>
+    </ul>
+    <h1>廣告輪播</h1>
+    <div class="banner_container">
+        <ul class="img_box">
+            <li><img class="idimg" id="idimg5" src="pic/zelda.jpg" /></li>
+            <li><img class="idimg" id="idimg1" src="pic/kirby.jpg" /></li>
+            <li><img class="idimg" id="idimg2" src="pic/marioparty.jpg" /></li>
+            <li><img class="idimg" id="idimg3" src="pic/supersmash.jpg" /></li>
+            <li><img class="idimg" id="idimg4" src="pic/xenoblade.jpg" /></li>
+            <li><img class="idimg" id="idimg5" src="pic/zelda.jpg" /></li>
+            <li><img class="idimg" id="idimg1" src="pic/kirby.jpg" /></li>
+        </ul>
+
+        <div class="left_btn"><img class="bt" src="pic/back.png"></div>
+
+        <div class="right_btn"><img class="bt" src="pic/next.png"></div>
+    </div>
+
+
+    <ul class="sel_box">
+
+        <li data-index="0"></li>
+        <li data-index="1"></li>
+        <li data-index="2"></li>
+        <li data-index="3"></li>
+        <li data-index="4"></li>
+    </ul>
+
+    <script>
+        let img_box = document.querySelector('.img_box');
+        let imgs = document.querySelectorAll('img');
+        let sel_box = document.querySelector('.sel_box')
+        let lis = sel_box.querySelectorAll('li');
+        let left_btn = document.querySelector('.left_btn');
+        let right_btn = document.querySelector('.right_btn');
+        let index = 0;
+        let timer = null;
+        let imgContainerW = img_box.offsetWidth
+
+        img_box.style.width = imgContainerW * imgs.length + 'px'
+        img_box.style.left = 0 + 'px';
+        lis[0].className = 'cur'
+
+        function swapImg() {
+
+            img_box.style.left = -index * imgContainerW + 'px';
+
+            for (let i = 0; i < lis.length; i++) {
+                lis[i].className = '';
+            }
+
+            lis[index].className = 'cur'
+        }
+        function swapFormat() {
+            index++;
+
+            if (index >= 5) {
+
+                index = 5;
+                img_box.style.transition = 'all, linear, 1s';
+                img_box.style.left = -index * imgContainerW + 'px';
+                for (let i = 0; i < lis.length; i++) {
+                    lis[i].className = '';
+                }
+
+                lis[0].className = 'cur'
+
+
+                setTimeout(function () {
+                    index = 0;
+                    img_box.style.transition = '';
+                    swapImg();
+                }, 1500)
+
+            } else {
+                img_box.style.transition = 'all, linear, 1.5s';
+                swapImg();
+            }
+
+        }
+
+        timer = setInterval(swapFormat, 3000)
+
+
+        right_btn.addEventListener('click', function () {
+            swapFormat();
+        })
+
+        left_btn.addEventListener('click', function () {
+            index--;
+
+            if (index < 0) {
+                index = -1
+                img_box.style.transition = 'all, linear, 1.5s';
+                img_box.style.left = -index * imgContainerW + 'px';
+                for (let i = 0; i < lis.length; i++) {
+                    lis[i].className = '';
+                }
+
+                lis[4].className = 'cur'
+
+
+                setTimeout(function () {
+                    index = 4
+                    img_box.style.transition = '';
+                    swapImg();
+                }, 1000)
+
+            } else {
+                img_box.style.transition = 'all, linear, 1.5s';
+                swapImg();
+            }
+        })
+
+        img_box.addEventListener('mouseover', function () {
+            clearInterval(timer)
+        })
+
+        right_btn.addEventListener('mouseover', function () {
+            clearInterval(timer)
+        })
+
+        left_btn.addEventListener('mouseover', function () {
+            clearInterval(timer)
+        })
+
+
+        img_box.addEventListener('mouseout', function () {
+            timer = setInterval(swapFormat, 3000)
+        })
+
+        left_btn.addEventListener('mouseout', function () {
+            timer = setInterval(swapFormat, 3000)
+        })
+
+        right_btn.addEventListener('mouseout', function () {
+            timer = setInterval(swapFormat, 3000)
+        })
+    </script>
+</body>
+
+</html>

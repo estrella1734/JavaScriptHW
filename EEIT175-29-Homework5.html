@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework</title>
+    <link rel="icon" href="pic/kirby.png" type="image/x-icon" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(pic/bg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .list {
+            font-size: small;
+            width: 1000px;
+            display: flex;
+            justify-content: right;
+            text-align: center;
+            overflow: auto;
+            list-style-type: none;
+            margin: auto;
+        }
+
+        .list li {
+            font-size: 2em;
+            font-weight: bold;
+            ;
+            float: left;
+            text-align: center;
+            /* border-right: 2px solid #7B7B7B; */
+            /* line-height: 1em; */
+            padding: 10px;
+        }
+
+        .list li a {
+            display: block;
+            text-align: center;
+        }
+
+        .list li a:link {
+            text-decoration: none;
+        }
+
+        .list li a:hover {
+            background-color: #f6f695;
+            color: #000449;
+        }
+
+        h1 {
+            text-shadow: 0.1em 0.1em 0.2em lightgray;
+            text-align: center;
+            color: rgb(11, 82, 102);
+        }
+
+
+
+        table {
+            margin: auto;
+            border: 10px inset rgb(186, 186, 239);
+            border-collapse: collapse;
+        }
+
+        td {
+            color: rgb(48, 3, 87);
+            /* text-shadow: 2px 2px 6px rgb(121, 120, 120); */
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgb(252, 254, 254);
+            border: 5px inset rgb(186, 186, 239);
+            padding: 10px;
+
+        }
+
+        .calendar {
+            margin-top: auto;
+            margin-left: 420px;
+            width: 450px;
+            height: 350px;
+            background: #fff;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .body-list ul {
+            width: 100%;
+            font-family: arial;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .body-list ul li {
+            width: 14.28%;
+            height: 36px;
+            line-height: 36px;
+            list-style-type: none;
+            display: block;
+            box-sizing: border-box;
+            float: left;
+            text-align: center;
+        }
+
+        .lightgrey {
+            color: #a8a8a8;
+            /*浅灰色*/
+        }
+
+        .darkgrey {
+            color: #565656;
+            /*深灰色*/
+        }
+
+        .green {
+            color: #6ac13c;
+            /*绿色*/
+        }
+
+        .greenbox {
+            border: 1px solid #6ac13c;
+            background: #e9f8df;
+            /*浅绿色背景*/
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <li><a href="EEIT175-29-Homework1.html">HW1</a></li>
+        <li><a href="EEIT175-29-Homework2.html">HW2</a></li>
+        <li><a href="EEIT175-29-Homework3.html">HW3</a></li>
+        <li><a href="EEIT175-29-Homework4.html">HW4</a></li>
+        <li><a href="EEIT175-29-Homework5.html">HW5</a></li>
+    </ul>
+    <h1>Calendar</h1>
+    <br><br><br>
+    <div class="calendar">
+        <div class="title">
+            <h1 class="green" id="calendar-title">Month</h1>
+            <h2 class="green small" id="calendar-year">Year</h2>
+            <a href="" id="prev">Prev Month</a>
+            <a href="" id="next">Next Month</a>
+        </div>
+
+        <div class="body">
+            <div class="lightgrey body-list">
+                <ul>
+                    <li>MON</li>
+                    <li>TUE</li>
+                    <li>WED</li>
+                    <li>THU</li>
+                    <li>FRI</li>
+                    <li>SAT</li>
+                    <li>SUN</li>
+                </ul>
+            </div>
+            <div class="darkgrey body-list">
+                <ul id="days">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var month_olympic = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var month_normal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var month_name = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var holder = document.getElementById("days");
+        var prev = document.getElementById("prev");
+        var next = document.getElementById("next");
+        var ctitle = document.getElementById("calendar-title");
+        var cyear = document.getElementById("calendar-year");
+
+        var my_date = new Date();
+        var my_year = my_date.getFullYear();
+        var my_month = my_date.getMonth();
+        var my_day = my_date.getDate();
+
+        function dayStart(month, year) {
+            var tmpDate = new Date(year, month, 1);
+            return (tmpDate.getDay());
+        }
+        function daysMonth(month, year) {
+            var tmp = year % 4;
+            if (tmp == 0) {
+                return (month_olympic[month]);
+            } else {
+                return (month_normal[month]);
+            }
+        }
+
+        function refreshDate() {
+            var str = "";
+            var totalDay = daysMonth(my_month, my_year);
+            var firstDay = dayStart(my_month, my_year);
+            var myclass;
+            for (var i = 1; i < firstDay; i++) {
+                str += "<li></li>";
+            }
+            for (var i = 1; i <= totalDay; i++) {
+                if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
+                    myclass = " class='lightgrey'";
+                } else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
+                    myclass = " class='green greenbox'";
+                } else {
+                    myclass = " class='darkgrey'";
+                }
+                str += "<li" + myclass + ">" + i + "</li>";
+            }
+            holder.innerHTML = str;
+            ctitle.innerHTML = month_name[my_month];
+            cyear.innerHTML = my_year;
+        }
+        refreshDate();
+
+        prev.onclick = function (e) {
+            e.preventDefault();
+            my_month--;
+            if (my_month < 0) {
+                my_year--;
+                my_month = 11;
+            }
+            refreshDate();
+        }
+        next.onclick = function (e) {
+            e.preventDefault();
+            my_month++;
+            if (my_month > 11) {
+                my_year++;
+                my_month = 0;
+            }
+            refreshDate();
+        }
+    </script>
+</body>
+
+</html>

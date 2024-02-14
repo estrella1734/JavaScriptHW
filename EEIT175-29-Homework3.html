@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework</title>
+    <link rel="icon" href="pic/kirby.png" type="image/x-icon" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(pic/bg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .list {
+            font-size: small;
+            width: 1000px;
+            display: flex;
+            justify-content: right;
+            text-align: center;
+            overflow: auto;
+            list-style-type: none;
+            margin: auto;
+        }
+
+        .list li {
+            font-size: 2em;
+            font-weight: bold;
+            ;
+            float: left;
+            text-align: center;
+            /* border-right: 2px solid #7B7B7B; */
+            /* line-height: 1em; */
+            padding: 10px;
+        }
+
+        .list li a {
+            display: block;
+            text-align: center;
+        }
+
+        .list li a:link {
+            text-decoration: none;
+        }
+
+        .list li a:hover {
+            background-color: #f6f695;
+            color: #000449;
+        }
+
+        h1 {
+            text-shadow: 0.1em 0.1em 0.2em lightgray;
+            text-align: center;
+            color: rgb(11, 82, 102);
+        }
+
+        table {
+            margin: auto;
+            border: 10px inset rgb(186, 186, 239);
+            border-collapse: collapse;
+        }
+
+        td {
+            color: rgb(48, 3, 87);
+            /* text-shadow: 2px 2px 6px rgb(121, 120, 120); */
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgb(252, 254, 254);
+            border: 5px inset rgb(186, 186, 239);
+            padding: 10px;
+
+        }
+
+        div {
+            text-align: center;
+
+        }
+
+        h4 {
+            font-style: italic;
+            margin-left: 20em;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <ul class="list">
+        <li><a href="EEIT175-29-Homework1.html">HW1</a></li>
+        <li><a href="EEIT175-29-Homework2.html">HW2</a></li>
+        <li><a href="EEIT175-29-Homework3.html">HW3</a></li>
+        <li><a href="EEIT175-29-Homework4.html">HW4</a></li>
+        <li><a href="EEIT175-29-Homework5.html">HW5</a></li>
+    </ul>
+    <h1>評點製作</h1>
+    <br><br><br>
+    <div>
+        <img id="idimg1" src="pic/star.gif" />
+        <img id="idimg2" src="pic/star.gif" />
+        <img id="idimg3" src="pic/star.gif" />
+        <img id="idimg4" src="pic/star.gif" />
+        <img id="idimg5" src="pic/star.gif" />
+    </div>
+
+    <br>
+    <h4>單擊星星可評分，雙擊星星重置</h5>
+        <div>
+            <span id="score"></span>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let pic = document.images;
+                let piclen = pic.length;
+                for (let i = 0; i < piclen; i++) {
+                    pic[i].addEventListener("mouseout", mouseout);
+                    pic[i].addEventListener("mouseover", mouseover);
+                    pic[i].addEventListener("click", Click);
+                    pic[i].addEventListener("dblclick", clean);
+
+                } document.getElementById("clean").addEventListener("click", clean);
+
+            });
+
+
+            function mouseover() {
+                let pic = document.images;
+                for (let i = 0; i < this.id.substr(5); i++) {
+                    pic[i].src = "pic/chngstar.gif";
+                    document.getElementById("score").innerHTML = `<h4>評分為${i + 1}顆星</h4>`;
+                }
+            }
+            function mouseout() {
+                let pic = document.images;
+                for (let i = 0; i < this.id.substr(5); i++) {
+                    pic[i].src = "pic/star.gif";
+                    document.getElementById("score").innerHTML = "";
+                }
+            }
+
+            function Click() {
+                let pic = document.images;
+                for (let i = 0; i < this.id.substr(5); i++) {
+                    pic[i].src = "pic/chngstar.gif";
+                    document.getElementById("score").innerHTML = `<h4>評分為${i + 1}顆星</h4>`;
+                }
+                let piclen = pic.length;
+                for (let i = 0; i < piclen; i++) {
+                    pic[i].removeEventListener("mouseout", mouseout);
+                    pic[i].removeEventListener("mouseover", mouseover);
+                    pic[i].removeEventListener("click", Click);
+
+                }
+            }
+
+            function clean() {
+                let pic = document.images;
+                let piclen = pic.length;
+                document.getElementById("score").innerHTML = "";
+                for (let i = 0; i < piclen; i++) {
+                    pic[i].src = "pic/star.gif";
+                    pic[i].addEventListener("mouseout", mouseout);
+                    pic[i].addEventListener("mouseover", mouseover);
+                    pic[i].addEventListener("click", Click);
+
+                }
+                document.getElementById("clean").addEventListener("click", clean);
+            }
+
+        </script>
+
+
+</body>
+
+</html>
